@@ -114,3 +114,4 @@ function resetColors () {
     document.getElementById('win').style.backgroundColor = "white"; 
     document.getElementById('lose').style.backgroundColor = "white"; 
 }
+
