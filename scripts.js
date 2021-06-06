@@ -1,3 +1,6 @@
+
+
+
 let rock = "rock"; 
 let paper = "paper"; 
 let scissors = "scissors"; 
@@ -6,11 +9,22 @@ let win = "You Win! ";
 let lose = "You Lose! "; 
 let tie = "You Tie! "; 
 
-let playerSelection = prompt();
-let computerSelection = computerPlay(); 
-
 let playerScore = 0; 
 let computerScore = 0; 
+
+
+let playerSelection = ""; 
+let computerSelection = "";
+
+const button = document.querySelectorAll('button');
+
+button.forEach(choice => choice.addEventListener('click', () => {
+    playerSelection = choice.innerHTML.toLowerCase();
+    computerSelection = computerPlay(); 
+    console.log("player: " + playerSelection + " computer: " + computerSelection); 
+    result(singleRound(playerSelection, computerSelection)); 
+    
+}));
 
 function computerPlay() {
     let value = Math.floor(Math.random() * 3 + 1); 
@@ -58,19 +72,27 @@ function singleRound(playerSelection, computerSelection) {
     }
 }
 
-function game(singleRound) {
-    for (let i = 0; i < 5; i++) {
-        singleRound;
-        console.log(singleRound); 
-    }
+function result (round) {
+    const scoreKeeper = document.getElementById('result').innerHTML(round);
 
-    if (playerScore > computerScore) {
-        return "You win the game!"; 
-    } else if (playerScore < computerScore) {
-        return "You lost the game"; 
-    } else {
-        return "You tied the game"; 
-    }
 }
 
-console.log(game(singleRound(playerSelection, computerSelection)));
+
+
+// function game(singleRound) {
+//     for (let i = 0; i < 5; i++) {
+//         singleRound;
+//         console.log(singleRound); 
+//     }
+
+//     if (playerScore > computerScore) {
+//         return "You win the game!"; 
+//     } else if (playerScore < computerScore) {
+//         return "You lost the game"; 
+//     } else {
+//         return "You tied the game"; 
+//     }
+// }
+
+// console.log(game(singleRound(playerSelection, computerSelection)));
+
