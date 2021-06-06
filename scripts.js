@@ -23,6 +23,7 @@ button.forEach(choice => choice.addEventListener('click', () => {
     computerSelection = computerPlay(); 
     console.log("player: " + playerSelection + " computer: " + computerSelection); 
     result(singleRound(playerSelection, computerSelection)); 
+    score(playerScore, computerScore);
     
 }));
 
@@ -39,60 +40,53 @@ function computerPlay() {
 }
 
 function singleRound(playerSelection, computerSelection) {
-    let playerInput = playerSelection.toLowerCase(); 
     
-    if (playerInput === computerSelection) {
-        computerScore++; 
-        playerScore++; 
-        return tie;
-    }
-
-    if (playerInput === rock && computerSelection != paper) {
-        playerScore++; 
-        return win + rock + " beats " + scissors; 
-    } else if (playerInput === rock && computerSelection === paper) {
-        computerScore++;
-        return lose + paper + " beats " + rock; 
-    }
-
-    if (playerInput === paper && computerSelection != scissors) {
+    if (playerSelection === computerSelection) {
         playerScore++;
-        return win + paper + " beats " + rock; 
-    } else if (playerInput === paper && computerSelection === scissors) {
         computerScore++; 
-        return lose + scissors + " beats " + paper; 
-    }
-
-    if (playerInput === scissors && computerSelection != rock) {
-        playerScore++;
-        return win + scissors + " beats " + paper; 
-    } else if (playerInput === scissors && computerSelection === rock) {
-        computerScore++;
-        return lose + rock + " beats " + scissors; 
+        return tie; 
+    } else {
+        return winOrLose(playerSelection, computerSelection);   
     }
 }
 
 function result (round) {
-    const scoreKeeper = document.getElementById('result').innerHTML(round);
-
+    document.getElementById('result').innerHTML = round;
 }
 
+function score (playerScore, computerScore) {
+    document.getElementById('score').innerHTML = "Player Score: " + playerScore + " Computer Score: " + computerScore; 
+    if (playerScore === 5 && computerScore < 5) {
+        alert("YOU WIN!");
+    } else if (playerScore === 5 && computerScore === 5) {
+        alert("YOU TIED!");
+    } else if (computerScore === 5 && playerScore < 5) {
+        alert("YOU LOSE!");
+    }
+}
 
+function winOrLose (playerSelection, computerSelection) {
+    if (playerSelection === rock && computerSelection != paper) {
+        playerScore++; 
+        return win + rock + " beats " + scissors; 
+    } else if (playerSelection === rock && computerSelection === paper) {
+        computerScore++;
+        return lose + paper + " beats " + rock; 
+    }
 
-// function game(singleRound) {
-//     for (let i = 0; i < 5; i++) {
-//         singleRound;
-//         console.log(singleRound); 
-//     }
+    if (playerSelection === paper && computerSelection != scissors) {
+        playerScore++;
+        return win + paper + " beats " + rock; 
+    } else if (playerSelection === paper && computerSelection === scissors) {
+        computerScore++; 
+        return lose + scissors + " beats " + paper; 
+    }
 
-//     if (playerScore > computerScore) {
-//         return "You win the game!"; 
-//     } else if (playerScore < computerScore) {
-//         return "You lost the game"; 
-//     } else {
-//         return "You tied the game"; 
-//     }
-// }
-
-// console.log(game(singleRound(playerSelection, computerSelection)));
-
+    if (playerSelection === scissors && computerSelection != rock) {
+        playerScore++;
+        return win + scissors + " beats " + paper; 
+    } else if (playerSelection === scissors && computerSelection === rock) {
+        computerScore++;
+        return lose + rock + " beats " + scissors; 
+    }
+}
