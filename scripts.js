@@ -15,12 +15,11 @@ let computerSelection = "";
 const button = document.querySelectorAll('button');
 
 button.forEach(choice => choice.addEventListener('click', () => {
+    resetColors();
     playerSelection = choice.innerHTML.toLowerCase();
     computerSelection = computerPlay();
-    console.log("player: " + playerSelection + " computer: " + computerSelection);
     result(singleRound(playerSelection, computerSelection));
     score(playerScore, computerScore);
-
 }));
 
 function computerPlay() {
@@ -46,10 +45,19 @@ function singleRound(playerSelection, computerSelection) {
 
 function result(round) {
     document.getElementById('result').innerHTML = round;
+    if (round.includes(win)) {
+        flashResult(win);
+    }
+
+    if (round.includes(lose)) {
+        flashResult(lose);
+    }
 }
 
 function score(playerScore, computerScore) {
-    document.getElementById('score').innerHTML = "Player Score: " + playerScore + " Computer Score: " + computerScore;
+    document.getElementById('player-score').innerHTML = "Player Score: " + playerScore;
+    document.getElementById('computer-score').innerHTML = "Computer Score: " + computerScore;
+
     if (playerScore === 5 && computerScore < 5) {
         alert("YOU WIN!");
         reset();
@@ -92,3 +100,17 @@ function winOrLose(playerSelection, computerSelection) {
     }
 }
 
+function flashResult (result) {
+    if (result === win) {
+        document.getElementById('win').style.backgroundColor = "green"; 
+    } 
+    
+    if (result === lose) {
+        document.getElementById('lose').style.backgroundColor = "red"; 
+    }
+}
+
+function resetColors () {
+    document.getElementById('win').style.backgroundColor = "white"; 
+    document.getElementById('lose').style.backgroundColor = "white"; 
+}
