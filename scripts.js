@@ -38,13 +38,14 @@ function singleRound(playerSelection, computerSelection) {
 
     if (playerSelection === computerSelection) {
         return tie;
-    } else {
-        return winOrLose(playerSelection, computerSelection);
     }
+
+    return winOrLose(playerSelection, computerSelection);
 }
 
 function result(round) {
     document.getElementById('result').innerHTML = round;
+
     if (round.includes(win)) {
         flashResult(win);
     }
@@ -75,43 +76,54 @@ function reset() {
 }
 
 function winOrLose(playerSelection, computerSelection) {
-    if (playerSelection === rock && computerSelection != paper) {
-        playerScore++;
-        return win + rock + " beats " + scissors;
-    } else if (playerSelection === rock && computerSelection === paper) {
-        computerScore++;
-        return lose + paper + " beats " + rock;
+
+    if (playerSelection === rock) {
+        if (computerSelection === scissors) {
+            playerScore++;
+            return win + rock + " beats " + scissors;
+        }
+
+        if (computerSelection === paper) {
+            computerScore++;
+            return lose + paper + " beats " + rock;
+        }
     }
 
-    if (playerSelection === paper && computerSelection != scissors) {
-        playerScore++;
-        return win + paper + " beats " + rock;
-    } else if (playerSelection === paper && computerSelection === scissors) {
-        computerScore++;
-        return lose + scissors + " beats " + paper;
+    if (playerSelection === paper) {
+        if (computerSelection === rock) {
+            playerScore++;
+            return win + paper + " beats " + rock;
+        }
+
+        if (computerSelection === scissors) {
+            computerScore++;
+            return lose + scissors + " beats " + paper;
+        }
     }
 
-    if (playerSelection === scissors && computerSelection != rock) {
-        playerScore++;
-        return win + scissors + " beats " + paper;
-    } else if (playerSelection === scissors && computerSelection === rock) {
-        computerScore++;
-        return lose + rock + " beats " + scissors;
+    if (playerSelection === scissors) {
+        if (computerSelection === paper) {
+            playerScore++;
+            return win + scissors + " beats " + paper;
+        }
+        if (computerSelection === rock) {
+            computerScore++;
+            return lose + rock + " beats " + scissors;
+        }
     }
 }
 
-function flashResult (result) {
+function flashResult(result) {
     if (result === win) {
-        document.getElementById('win').style.backgroundColor = "green"; 
-    } 
-    
+        document.getElementById('win').style.backgroundColor = "green";
+    }
+
     if (result === lose) {
-        document.getElementById('lose').style.backgroundColor = "red"; 
+        document.getElementById('lose').style.backgroundColor = "red";
     }
 }
 
-function resetColors () {
-    document.getElementById('win').style.backgroundColor = "white"; 
-    document.getElementById('lose').style.backgroundColor = "white"; 
+function resetColors() {
+    document.getElementById('win').style.backgroundColor = "white";
+    document.getElementById('lose').style.backgroundColor = "white";
 }
-
